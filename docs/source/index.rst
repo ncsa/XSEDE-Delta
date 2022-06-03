@@ -1,240 +1,189 @@
-# **<span id="DeltaXSEDEDocumentation-top" class="confluence-anchor-link conf-macro output-inline" hasbody="false" macro-name="anchor"> </span>Delta User Guide**
+.. container:: innerCell
 
-*Last update: April 7, 2022*
+   .. rubric:: **Delta User Guide**
+      :name: DeltaXSEDEDocumentation-topDeltaUserGuide
 
-# **Status Updates and Notices**
+   *Last update: April 7, 2022*
 
-*Delta* is tentatively scheduled to enter production in Q2 2022.
+   .. rubric:: **Status Updates and Notices**
+      :name: DeltaXSEDEDocumentation-StatusUpdatesandNotices
 
-key: light grey font is work in progress
+   *Delta* is tentatively scheduled to enter production in Q2 2022.
 
-<span
-class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
-</span>
+   .. container::
+   confluence-information-macro confluence-information-macro-information conf-macro output-block
 
-Items in light grey font are in progress and coming soon.  <span
-style="color: rgb(165,173,186);">Example software or feature not yet
-implemented.</span>
+      key: light grey font is work in progress
 
-# **Introduction**
+      .. container:: confluence-information-macro-body
 
-*Delta* is a dedicated,
-<a href="http://www.xsede.org" class="external-link" rel="nofollow"
-target="_blank">eXtreme Science and Engineering Science Discovery
-Environment (XSEDE)</a> allocated resource designed by HPE and NCSA,
-delivering a highly capable GPU-focused compute environment for GPU and
-CPU workloads.  Besides offering a mix of standard and reduced precision
-GPU resources, *Delta* also offers GPU-dense nodes with both NVIDIA and
-AMD GPUs.  *Delta* provides high performance node-local SSD scratch
-filesystems, as well as both standard lustre and <span
-style="color: rgb(165,173,186);">relaxed-POSIX</span> parallel
-filesystems spanning the entire resource.
+         Items in light grey font are in progress and coming soon. 
+         Example software or feature not yet implemented.
 
-*Delta's* CPU nodes are each powered by two 64-core AMD EPYC 7763
-("Milan") processors, with 256 GB of DDR4 memory.  The *Delta* GPU
-resource has four node types: one with 4 NVIDIA A100 GPUs (40 GB HBM2
-RAM each) connected via NVLINK and 1 64-core AMD EPYC 7763 ("Milan")
-processor, the second with 4 NVIDIA A40 GPUs (48 GB GDDR6 RAM) connected
-via PCIe 4.0 and 1 64-core AMD EPYC 7763 ("Milan") processor, the third
-with 8 NVIDIA A100 GPUs in a dual socket AMD EPYC 7763 (128-cores per
-node) node with 2 TB of DDR4 RAM and NVLINK,  and the fourth with 8 AMD
-MI100 GPUs (32GB HBM2 RAM each) in a dual socket AMD EPYC 7763
-(128-cores per node) node with 2 TB of DDR4 RAM and PCIe 4.0. 
+   .. rubric:: **Introduction**
+      :name: DeltaXSEDEDocumentation-Introduction
 
-*Delta* has 124 standard CPU nodes, 100 4-way A100-based GPU nodes, 100
-4-way A40-based GPU nodes, 5 8-way A100-based GPU nodes, and 1 8-way
-MI100-based GPU node.  Every *Delta* node has high-performance
-node-local SSD storage (740 GB for CPU nodes, 1.5 TB for GPU nodes), and
-is connected to the 7 PB Lustre parallel filesystem via the high-speed
-interconnect.  The *Delta* resource uses the SLURM workload manager for
-job scheduling.  
+   *Delta* is a dedicated, `eXtreme Science and Engineering Science
+   Discovery Environment (XSEDE) <http://www.xsede.org>`__ allocated
+   resource designed by HPE and NCSA, delivering a highly capable
+   GPU-focused compute environment for GPU and CPU workloads.  Besides
+   offering a mix of standard and reduced precision GPU resources,
+   *Delta* also offers GPU-dense nodes with both NVIDIA and AMD GPUs. 
+   *Delta* provides high performance node-local SSD scratch filesystems,
+   as well as both standard lustre and relaxed-POSIX parallel
+   filesystems spanning the entire resource.
 
-Delta supports the
-<a href="https://www.xsede.org/software" class="external-link"
-rel="nofollow" target="_blank">XSEDE core software stack</a>, including
-remote login, remote computation, data movement, science workflow
-support, and science gateway support toolkits.
+   *Delta's* CPU nodes are each powered by two 64-core AMD EPYC 7763
+   ("Milan") processors, with 256 GB of DDR4 memory.  The *Delta* GPU
+   resource has four node types: one with 4 NVIDIA A100 GPUs (40 GB HBM2
+   RAM each) connected via NVLINK and 1 64-core AMD EPYC 7763 ("Milan")
+   processor, the second with 4 NVIDIA A40 GPUs (48 GB GDDR6 RAM)
+   connected via PCIe 4.0 and 1 64-core AMD EPYC 7763 ("Milan")
+   processor, the third with 8 NVIDIA A100 GPUs in a dual socket AMD
+   EPYC 7763 (128-cores per node) node with 2 TB of DDR4 RAM and
+   NVLINK,  and the fourth with 8 AMD MI100 GPUs (32GB HBM2 RAM each) in
+   a dual socket AMD EPYC 7763 (128-cores per node) node with 2 TB of
+   DDR4 RAM and PCIe 4.0. 
 
-  
+   *Delta* has 124 standard CPU nodes, 100 4-way A100-based GPU nodes,
+   100 4-way A40-based GPU nodes, 5 8-way A100-based GPU nodes, and 1
+   8-way MI100-based GPU node.  Every *Delta* node has high-performance
+   node-local SSD storage (740 GB for CPU nodes, 1.5 TB for GPU nodes),
+   and is connected to the 7 PB Lustre parallel filesystem via the
+   high-speed interconnect.  The *Delta* resource uses the SLURM
+   workload manager for job scheduling.  
 
-**<span
-class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img
-src="/download/attachments/144016994/image2021-3-12_14-23-11.png?version=1&amp;modificationDate=1615925873000&amp;api=v2"
-class="confluence-embedded-image"
-data-image-src="/download/attachments/144016994/image2021-3-12_14-23-11.png?version=1&amp;modificationDate=1615925873000&amp;api=v2"
-data-unresolved-comment-count="0" data-linked-resource-id="144016995"
-data-linked-resource-version="1" data-linked-resource-type="attachment"
-data-linked-resource-default-alias="image2021-3-12_14-23-11.png"
-data-base-url="https://wiki.ncsa.illinois.edu"
-data-linked-resource-content-type="image/png"
-data-linked-resource-container-id="144016994"
-data-linked-resource-container-version="177" height="250" /></span>**
+   Delta supports the `XSEDE core software
+   stack <https://www.xsede.org/software>`__, including remote login,
+   remote computation, data movement, science workflow support, and
+   science gateway support toolkits.
 
-**Figure 1. Delta System**
+   | 
 
-Delta is supported by the National Science Foundation under Grant No.
-OAC-<span style="color: rgb(0,0,0);">2005572</span>.
+   **|image1|**
 
-Any opinions, findings, and conclusions or recommendations expressed in
-this material are those of the author(s) and do not necessarily reflect
-the views of the National Science Foundation.
+   **Figure 1. Delta System**
 
-<table class="wrapped confluenceTable" data-resolved="">
-<tbody>
-<tr class="header">
-<th style="text-align: center;" class="highlight-yellow confluenceTh"
-data-highlight-colour="yellow"><em>Delta</em> is now accepting
-proposals.</th>
-</tr>
+   Delta is supported by the National Science Foundation under Grant No.
+   OAC-2005572.
 
-</tbody>
-</table>
+   Any opinions, findings, and conclusions or recommendations expressed
+   in this material are those of the author(s) and do not necessarily
+   reflect the views of the National Science Foundation.
 
-[Top of Page](#DeltaXSEDEDocumentation-top)
+   .. container:: table-wrap
 
-# **Account Administration**
+      +-------------------------------------+
+      | *Delta* is now accepting proposals. |
+      +-------------------------------------+
 
--   For XSEDE projects please use the
-    <a href="https://portal.xsede.org/my-xsede" class="external-link"
-    rel="nofollow" target="_blank">XSEDE user portal</a> for project and
-    account management.
--   Non-XSEDE Account and Project administration is handled by NCSA
-    Identity and NCSA group management tools. For more information
-    please see the [NCSA Allocation and Account
-    Management](/display/USSPPRT/User+Services+NCSA+Allocation+and+Account+Management)
-    documentation page. 
+   `Top of Page <#DeltaXSEDEDocumentation-top>`__
 
-## **Configuring Your Account**
+   .. rubric:: **Account Administration**
+      :name: DeltaXSEDEDocumentation-AccountAdministration
 
--   bash is the default shell, submit a support request to change your
-    default shell
--   environment variables: <span style="color: rgb(165,173,186);">XSEDE
-    CUE</span>, [SLURM
-    batch](#DeltaXSEDEDocumentation-slurm_environment_batch)  
--   using [Modules](#DeltaXSEDEDocumentation-lmod) 
+   -  For XSEDE projects please use the `XSEDE user
+      portal <https://portal.xsede.org/my-xsede>`__ for project and
+      account management.
+   -  Non-XSEDE Account and Project administration is handled by NCSA
+      Identity and NCSA group management tools. For more information
+      please see the `NCSA Allocation and Account
+      Management </display/USSPPRT/User+Services+NCSA+Allocation+and+Account+Management>`__
+      documentation page. 
 
-# **System Architecture**
+   .. rubric:: **Configuring Your Account**
+      :name: DeltaXSEDEDocumentation-ConfiguringYourAccount
 
-<span style="color: rgb(0,0,0);">Delta is designed to help applications
-transition from CPU-only to GPU or hybrid CPU-GPU codes. Delta has some
-important architectural features to facilitate new discovery and
-insight:</span>
+   -  bash is the default shell, submit a support request to change your
+      default shell
+   -  environment variables: XSEDE CUE, `SLURM
+      batch <#DeltaXSEDEDocumentation-slurm_environment_batch>`__
+   -  using `Modules <#DeltaXSEDEDocumentation-lmod>`__ 
 
--   <span style="color: rgb(0,0,0);">a single processor architecture
-    (AMD) across all node types: CPU and GPU</span>
--   <span style="color: rgb(17,17,17);">support for NVIDIA A100 MIG GPU
-    partitioning allowing for fractional use of the A100s if your
-    workload isn't able to exploit an entire A100 efficiently</span>
--   <span style="color: rgb(0,0,0);">ray tracing hardware support from
-    the NVIDIA A40 GPUs</span>
--   <span style="color: rgb(0,0,0);">9 large memory (2 TB) nodes </span>
--   <span style="color: rgb(0,0,0);">a low latency and high bandwidth
-    HPE/Cray Slingshot interconnect between compute nodes</span>
--   <span style="color: rgb(0,0,0);">lustre for home, projects and
-    scratch file systems</span>
--   <span style="color: rgb(165,173,186);">support for relaxed and
-    non-posix IO</span>
--   <span style="color: rgb(17,17,17);">shared-node jobs and the single
-    core and single MIG GPU slice</span>
--   <span style="color: rgb(17,17,17);">Resources for persistent
-    services in support of Gateways, Open OnDemand, Data Transport
-    nodes..., </span>
--   <span style="color: rgb(0,0,0);">Unique AMD MI-100 resource</span>  
+   .. rubric:: **System Architecture**
+      :name: DeltaXSEDEDocumentation-SystemArchitecture
 
-## **Model Compute Nodes**
+   Delta is designed to help applications transition from CPU-only to
+   GPU or hybrid CPU-GPU codes. Delta has some important architectural
+   features to facilitate new discovery and insight:
 
-<span style="color: rgb(0,0,0);">The Delta compute ecosystem is composed
-of 5 node types: dual-socket CPU-only compute nodes, single socket 4-way
-NVIDIA A100 GPU compute nodes, single socket 4-way NVIDIA A40 GPU
-compute nodes, dual-socket 8-way NVIDIA A100 GPU compute nodes, and a
-single socket 8-way AMD MI100 GPU compute nodes. The CPU-only and 4-way
-GPU nodes have 256 GB of RAM per node while the 8-way GPU nodes have 2
-TB of RAM. The CPU-only node has 0.74 TB of local storage while all GPU
-nodes have 1.5 TB of local storage.</span>
+   -  a single processor architecture (AMD) across all node types: CPU
+      and GPU
+   -  support for NVIDIA A100 MIG GPU partitioning allowing for
+      fractional use of the A100s if your workload isn't able to exploit
+      an entire A100 efficiently
+   -  ray tracing hardware support from the NVIDIA A40 GPUs
+   -  9 large memory (2 TB) nodes 
+   -  a low latency and high bandwidth HPE/Cray Slingshot interconnect
+      between compute nodes
+   -  lustre for home, projects and scratch file systems
+   -  support for relaxed and non-posix IO
+   -  shared-node jobs and the single core and single MIG GPU slice
+   -  Resources for persistent services in support of Gateways, Open
+      OnDemand, Data Transport nodes..., 
+   -  Unique AMD MI-100 resource  
 
-### Table. CPU Compute Node Specifications
+   .. rubric:: **Model Compute Nodes**
+      :name: DeltaXSEDEDocumentation-ModelComputeNodes
 
-<table class="wrapped confluenceTable tablesorter tablesorter-default"
-role="grid" data-resolved="">
-<thead>
-<tr class="header tablesorter-headerRow" role="row">
-<th
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-data-column="0" tabindex="0" scope="col" role="columnheader"
-aria-disabled="false" data-unselectable="on" aria-sort="none"
-aria-label="Specification: No sort applied, activate to apply an ascending sort"
-style="user-select: none"><div class="tablesorter-header-inner">
-Specification
-</div></th>
-<th
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-data-column="1" tabindex="0" scope="col" role="columnheader"
-aria-disabled="false" data-unselectable="on" aria-sort="none"
-aria-label="Value: No sort applied, activate to apply an ascending sort"
-style="user-select: none"><div class="tablesorter-header-inner">
-Value
-</div></th>
-</tr>
-</thead>
-<tbody aria-live="polite" aria-relevant="all">
-<tr class="odd" role="row">
-<td class="confluenceTd"><p><span>Number of nodes</span></p></td>
-<td class="confluenceTd"><p><span>124</span></p></td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><span>CPU</span></td>
-<td class="confluenceTd"><span><span>AMD</span></span> EPYC
-7763<span><span><br />
-</span></span><span>"Milan" (PCIe Gen4)</span></td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd">Sockets per node</td>
-<td class="confluenceTd">2</td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><p><span>Cores per socket</span></p></td>
-<td class="confluenceTd"><p><span>64</span></p></td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd">Cores per node</td>
-<td class="confluenceTd">128</td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><p><span>Hardware threads per
-core</span></p></td>
-<td class="confluenceTd">1</td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd"><p><span>Hardware threads per
-node</span></p></td>
-<td class="confluenceTd"><p><span>128</span></p></td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><p><span>Clock rate (GHz)</span></p></td>
-<td class="confluenceTd"><p><span>~ 2.45</span></p></td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd"><p><span>RAM (GB)</span></p></td>
-<td class="confluenceTd"><p><span>256</span></p></td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><p><span>Cache (KB) L1/L2/L3</span></p></td>
-<td class="confluenceTd"><p><span> 64/512/32768</span></p></td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd"><p><span>Local storage (TB)</span></p></td>
-<td class="confluenceTd"><p><span>0.74 TB</span></p></td>
-</tr>
-</tbody>
-</table>
+   The Delta compute ecosystem is composed of 5 node types: dual-socket
+   CPU-only compute nodes, single socket 4-way NVIDIA A100 GPU compute
+   nodes, single socket 4-way NVIDIA A40 GPU compute nodes, dual-socket
+   8-way NVIDIA A100 GPU compute nodes, and a single socket 8-way AMD
+   MI100 GPU compute nodes. The CPU-only and 4-way GPU nodes have 256 GB
+   of RAM per node while the 8-way GPU nodes have 2 TB of RAM. The
+   CPU-only node has 0.74 TB of local storage while all GPU nodes have
+   1.5 TB of local storage.
 
-The AMD CPUs are set for 4 NUMA domains per socket (NPS=4). 
+   .. rubric:: Table. CPU Compute Node Specifications
+      :name: DeltaXSEDEDocumentation-Table.CPUComputeNodeSpecifications
 
-### Table. 4-way NVIDIA A40 GPU Compute Node Specifications 
+   .. container:: table-wrap
 
-Specification
+      +----------------------------------+----------------------------------+
+      | .. container::                   | .. container::                   |
+      | tablesorter-header-inner         | tablesorter-header-inner         |
+      |                                  |                                  |
+      |    Specification                 |    Value                         |
+      +==================================+==================================+
+      | Number of nodes                  | 124                              |
+      +----------------------------------+----------------------------------+
+      | CPU                              | AMD EPYC 7763                    |
+      |                                  | "Milan" (PCIe Gen4)              |
+      +----------------------------------+----------------------------------+
+      | Sockets per node                 | 2                                |
+      +----------------------------------+----------------------------------+
+      | Cores per socket                 | 64                               |
+      +----------------------------------+----------------------------------+
+      | Cores per node                   | 128                              |
+      +----------------------------------+----------------------------------+
+      | Hardware threads per core        | 1                                |
+      +----------------------------------+----------------------------------+
+      | Hardware threads per node        | 128                              |
+      +----------------------------------+----------------------------------+
+      | Clock rate (GHz)                 | ~ 2.45                           |
+      +----------------------------------+----------------------------------+
+      | RAM (GB)                         | 256                              |
+      +----------------------------------+----------------------------------+
+      | Cache (KB) L1/L2/L3              |  64/512/32768                    |
+      +----------------------------------+----------------------------------+
+      | Local storage (TB)               | 0.74 TB                          |
+      +----------------------------------+----------------------------------+
 
-Value
+   The AMD CPUs are set for 4 NUMA domains per socket (NPS=4). 
+
+   .. rubric:: Table. 4-way NVIDIA A40 GPU Compute Node Specifications 
+      :name: DeltaXSEDEDocumentation-Table.4-wayNVIDIAA40GPUComputeNodeSpecifications
+
+   .. container:: table-wrap
+
+      .. container:: tablesorter-header-inner
+
+         Specification
+
+.. container:: tablesorter-header-inner
+
+   Value
 
 Number of nodes
 
@@ -244,8 +193,7 @@ GPU
 
 NVIDIA A40 
 
-(<a href="https://www.nvidia.com/en-us/data-center/a40/#specs"
-class="external-link" rel="nofollow" target="_blank">Vendor page</a>)
+(`Vendor page <https://www.nvidia.com/en-us/data-center/a40/#specs>`__)
 
 GPUs per node
 
@@ -292,7 +240,7 @@ Cache (KB) L1/L2/L3
 &nbsng affinitization to NUMA nodes on the CPU. Note that the
 relationship between GPU index and NUMA domain are inverse.
 
-Table. 4-way NVIDIA A40 Mapping and GPU-CPU AffeTd"&gt;GPU1
+Table. 4-way NVIDIA A40 Mapping and GPU-CPU AffeTd">GPU1
 
 SYS
 
@@ -306,19 +254,19 @@ SYS
 
 32-47
 
-  
+| 
 
 Table Legend
 
-<span class="s1">X    = Self  
-</span><span class="s1">SYS  = ConneaderRow"&gt;</span>
+X    = Self
+SYS  = ConneaderRow">
 
 NVIDIA A100
 
-(<a href="https://www.nvidia.com/en-us/data-center/a100/#specifications"
-class="external-link" rel="nofollow" target="_blank">Vendor page</a>)
+(`Vendor
+page <https://www.nvidia.com/en-us/data-center/a100/#specifications>`__)
 
-fluenceTd"&gt;1
+fluenceTd">1
 
 Hardware threads per node
 
@@ -328,7 +276,7 @@ Clock rate (GHz)
 
 ~ 2.45
 
-  
+| 
 
 GPU0
 
@@ -374,8 +322,8 @@ PHB
 
 0-15
 
-PHB  = Connection traversing PCIe as well as a PCIe Host Bridge
-(typically the CPU)  
+| PHB  = Connection traversing PCIe as well as a PCIe Host Bridge
+  (typically the CPU)
 
 Specification
 
@@ -428,9 +376,11 @@ GPU3
 NV12
 
 NODE = Connection traversing Pication: No sort applied, activate to
-apply an ascending sort" style="user-select: none;"&gt;
+apply an ascending sort" style="user-select: none;">
 
-GPUs per node
+.. container:: confluenceTd
+
+   GPUs per node
 
 8
 
@@ -449,1069 +399,1055 @@ RAM (GB)
 Delta is connected to the nd it has 6PB of usable space.  These file
 systems run Lustre via DDN's ExaScaler 6 stack (Lustre 2.14 based).
 
-<u>Hardware:  
-</u>DDN SFA7990XE (Quantity: 3), each unit contains
+*Hardware:
+*\ DDN SFA7990XE (Quantity: 3), each unit contains
 
--   One additional SS9012 enclosure
--   168 x 16TB SAS Drives
--   7 x 1.92TB SAS SSDs
+-  One additional SS9012 enclosure
+-  168 x 16TB SAS Drives
+-  7 x 1.92TB SAS SSDs
 
 The $HOME file system has ort applied, activate to apply an ascending
-sort" style="user-select: none;"&gt;
+sort" style="user-select: none;">
 
-File size
+.. container:: tablesorter-header-inner
 
-<u>Hardware:  
-</u>DDN SFA400NVXE (Quanup&gt;
+   File size
 
-$HOME
+*Hardware:
+*\ DDN SFA400NVXE (Quanup>
 
-**25GB. **400,000 files per u="1" class="confluenceTd"&gt;No
+.. container:: tables
+
+   $HOME
+
+**25GB. **\ 400,000 files per u="1" class="confluenceTd">No
 
 Yes; files older than 30-days (access time)
 
-Area for computation, largest allocEDocumentation-login\_nodes"
-data-hasbody="false" data-macro-name="anchor"&gt;
+Area for computation, largest allocEDocumentation-login_nodes"
+data-hasbody="false" data-macro-name="anchor">
 
 Direct access to the Delta login nodene" aria-label="example usage with
 ssh: No sort applied, activate to apply an ascending sort"
-style="user-select: none;"&gt;
+style="user-select: none;">
 
-eedu
+.. container:: tablesorter-header-inner
 
-<span style="letter-spacing: 0.0px;">If needed, XSEDE users can lookup
-their local username at
-</span><a href="https://portal.xsede.org/group/xup/accounts"
-class="external-link" style="letter-spacing: 0.0px;" data-re"true"=""
-data-macro-name="info"></a>
+   eedu
+
+If needed, XSEDE users can lookup their local username
+at\ ` <https://portal.xsede.org/group/xup/accounts>`__
 
 maintaining persistent sessions: tmux
 
-<span
-class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
-</span>
+.. container:: confluence-information-macro-body
 
-tmux is available on the login nodes to maintain persistent sessse
-execute the gsissh command with the “-vvv” option and include the
-verbose output in your problem description.
+   tmux is available on the login nodes to maintain persistent sessse
+   execute the gsissh command with the “-vvv” option and include the
+   verbose output in your problem description.
 
-Once on the XSEDE SSO hub:
+   Once on the XSEDE SSO hub:
 
-<a href="#"
-class="toolbar_item cthe system affects others. Exercise good citizenship to ensure that your activity does not advee the following entries in their &lt;code&gt;$HOME&lt;/code&gt; and entries in the project and scratch file systems. T&lt;/span&gt;o depan&gt;&lt;/div&gt;&lt;table border="
-data-0"="" data-cellpadding="0" data-cellspacing="0"></a>
+   .. container:: coder sh-confluence nogutter java
 
- 
+      .. container:: toolbar
 
-`$ `nbsp;  delta\_abcd      4096 Feb 21 11:54 `/scratch/abcd`
+         ` <#>`__
 
-rsync - to be used for small to modest transfers to avoid impacting the
-usability of the Delta login node. 
+         .. container::
 
--   Sharing Files with Collaborators
+         .. container:: line number6 index5 alt1
 
-    Building Software. 
+             
 
-    <span
-    class="confluence-embedded-file-wrapper conf-macrD EPYC 7xx3 Series Processors.pdf">![](/rest/documentConversion/latest/conversion/thumbnail/179671355%20apply%20an%20ascending%20sort)</span>
+         .. container:: line number7 index6 alt2
 
-    gcc
+            ``$``\ nbsp;  delta_abcd      4096 Feb 21 11:54
+            ``/scratch/abcd``
 
--   <span style="color: rgb(165,173,186);">Launching One Hybrid
-    (MPI+Threads) Application</span>
+         .. container:: line number15 i </p><p><br></p><div class=
 
--   More Than One Serial Applicati&gt;Keep in mind that your charges are
-    based on the resources that are reserved de
+            rsync - to be used for small to modest transfers to avoid
+            impacting the usability of the Delta login node. 
 
-## **Accessing the Compute Nodes**
+            -  Sharing Files with Collaborators
 
-Deltamitting<span style="letter-spacing: 0.0px;"> for detail number2
-index1 alt1"&gt;`             `</span>
+               Building Software. 
 
-`252` `GB`
+               |image2|
 
-<span style="color: rgb(165,173,186);">TBD</span>
+               .. container:: tablesorter-header-inner
 
-30 min<span style="color: rgb(165,173,186);">30 min</span>
+                  gcc
 
-TBD<span style="color: rgb(165,173,186);">TBD</span>
+            -  Launching One Hybrid (MPI+Threads) Application
 
-<span style="color: rgb(165,173,186);">2.0</span>
+            -  More Than One Serial Applicati>Keep in mind that your
+               charges are based on the resources that are reserved de
 
-1.n-sviewviewofslurmpartitions"&gt;sview view of slurm partitions
+            .. rubric:: **Accessing the Compute Nodes**
+               :name: DeltaXSEDEDocumentation-AccessingtheComputeNodes
 
-<a href="#" class="toolbar_item command_help help">?</a>
+            Deltamittingfor detail number2 index1
+            alt1">\ ``             ``
 
-single core class="java plain"&gt;--tasks=`1` `\`
+            .. container:: codeContent panelContent pdl
 
-`  ``--tasks-per-node=``1` `--cpus-per-task=``1` applications from
-within them.  Use <u>*mpirun*</u> to launch mpi jobs from within an
-interactive job.  Within standard batch jobs submitted via sbatch, use
-<u>srun</u> to launch MPI codes.
+               .. container::
 
-### Interactive X11 Support
+                  ``252`` ``GB``
+
+               .. container:: tablesorter-headerRow
+
+                  TBD
+
+30 min30 min
+
+TBDTBD
+
+2.0
+
+1.n-sviewviewofslurmpartitions">sview view of slurm partitions
+
+`? <#>`__
+
+single core class="java plain">--tasks=\ ``1`` ``\``
+
+.. container:: line number3 index2 alt2
+
+   ``  ``\ ``--tasks-per-node=``\ ``1`` ``--cpus-per-task=``\ ``1``
+   applications from within them.  Use *mpirun* to launch mpi jobs from
+   within an interactive job.  Within standard batch jobs submitted via
+   sbatch, use *srun* to launch MPI codes.
+
+.. _DeltaXSEDEDocumentation-InteractiveX11Support:
+
+Interactive X11 Support
+~~~~~~~~~~~~~~~~~~~~~~~
 
 To run an X11 based application on a compute node in an interactive
-session, the use of the `--x11` switch with `srun` is needed. For
+session, the use of the ``--x11`` switch with ``srun`` is needed. For
 example, to run a single core job that uses 1g of memory with X11 (in
-this" title="Hint: double-click to select code"&gt;
+this" title="Hint: double-click to select code">
 
-`srun -A abcd-delta-cpu  --partition=cpu \`
+.. container:: line number1 index0 alt2
 
-`  ``--nodes=``1` `--tasks=``1` `--tasks-per-node=`` `
+   ``srun -A abcd-delta-cpu  --partition=cpu \``
 
--   Serial jobs
+.. container:: line number2 index1 alt1
 
-    **serial example script**`#!/bin/bash`
+   ``  ``\ ``--nodes=``\ ``1`` ``--tasks=``\ ``1``
+   ``--tasks-per-node=``\ ````
 
-    `#SBATCH --mem=16g`
+   -  Serial jobs
 
-    `#SBATCH --nodes=1`
+      .. container:: code panel pdl conf-macro output-block
 
-    `#SBATCH --ntasks-per-node=1`
+         .. container:: codeHeader panelHeader pdl
 
-    `#SBATCH --cpus-per-task=1    # <- match to OMP_NUM_THREADS`
+            **serial example script**\ ``#!/bin/bash``
 
-    `#SBA      # hh:mm:ss for the job`
+         .. container:: line number3 index2 alt2
 
-    `### GPU options ###`
+            ``#SBATCH --mem=16g``
 
-    `##SBATCH --gpus-per-node=2`
+         .. container:: line number4 index3 alt1
 
-    `##SBATCH --gpu-bind=none     # <- or closest`
+            ``#SBATCH --nodes=1``
 
-    `##SBATCH --mail-user=you@yourinstitution.edu `
+         .. container:: line number5 index4 alt2
 
-    `##SBATCH --mail-type="BEGIN,END" See sbatch or srun man pages for more email options  `
+            ``#SBATCH --ntasks-per-node=1``
 
-     
+         .. container:: line number6 index5 alt1
 
-     
+            ``#SBATCH --cpus-per-task=1    # <- match to OMP_NUM_THREADS``
 
-    `             ``# (good job metadata and reproducibility)`
+         .. container:: line number7 index6 alt2
 
-    `             ``# $WORK and $SCRATCH are notd>`
-    MPI  
+            ``#SBA      # hh:mm:ss for the job``
 
-    **mpi example script** <span clat:="" double-click="" to=""
-    select="" code"=""></span>
-    `#!/bin/bash`
+         .. container:: line number11 index10 alt2
 
-    `#SBATCH --mem=16g`
+            ``### GPU options ###``
 
-    `#SBATCH --time=00:10:00      # hh:mm:ss for the job`
+         .. container:: line number12 index11 alt1
 
-    `### GPU options ###`
+            ``##SBATCH --gpus-per-node=2``
 
-    `##SBATCH --gpus-per-node=2`
+         .. container:: line number13 index12 alt2
 
-    `##SBATCH --gpu-bind=none     # <- or closest ##SBATCH --mp;      ``# (good job metadata and reproducibility)`
+            ``##SBATCH --gpu-bind=none     # <- or closest``
 
-    `             ``# $WORK and $SCRATCH are now set`
+         .. container:: line number14 index13 alt1
 
-    `module load gcc``/11``.2.0 openmpi  ``# ... or any appropriate modules`
+            ``##SBATCH --mail-user=you@yourinstitution.edu``
 
-    OpenMP  <span style="color: rgb(255,204,153);"> </span>
-    **openmp example script** <span
-    class="collapse-source expand-control" style=""><span
-    class="expand-control-icon icon"> </span><span
-    class="expand-control-text">Expand sourcetd
-    class="code"&gt;</span></span>
-    `#!/bin/bash`
+         .. container:: line number15 index14 alt2
 
-    `#SBATCH --mem=16g`
+            ``##SBATCH --mail-type="BEGIN,END" See sbatch or srun man pages for more email options ``
 
-    `#SBATCH --nodes=1`
+         .. container:: line number16 index15 alt1
 
-    `#SBATCH --ntasks-per-node=1`
-    `#SBATCH --time=00:10:00      # hh:mm:ss for the job`
+             
 
-    `### GPU options ###`
+         .. container:: line number17 index16 alt2
 
-    `##SBATCH --gpus-per-node=2`
+             
 
-    `##SBATCH --gpu-bind=none     # <- o needed`
+         .. container:: line index18 alt2
 
-    `             ``# (good job metadata and reproducibility)`
+            ``             ``\ ``# (good job metadata and reproducibility)``
 
-    `             ``# $WORK and $SCRATCH are now set`
+         .. container:: line number20 index19 alt1
 
-    `mo/div>`
-    `export` `OMP_NUM_THREADS=32`
+            ``             ``\ ``# $WORK and $SCRATCH are notd>``
+            MPI  
 
-    `srun stream_gcc`
+            .. container:: code panel pdl conf-macro output-block
 
--   <span style="color: rgb(165,173,186);">Parametric / Array / HTC
-    jobs</span>
+               .. container::
+               codeHeader panelHeader pdl hide-border-bottom
 
-# **Job Management **
+                  **mpi example script**
 
-Batch jobs are submitted through a *job script*  (as in the examples
-above) using the sbatch command. Job scripts generally start with a
-series of SLURM *directives* that describe requirements of the job such
-as number of nodes, wall time required, etc… to the batch
-system/scheduler (SLURM directives can also be specified as options on
-the sbatch command line; command line options take precedence over those
-in the script). The rest of the batch script consists of user commands.
+                  .. container:: line number1 index0 alt2
 
-The syntax for sbatch is:
-
-**sbatch** \[list of sbatch options\] script\_name
-
-Refer to the sbatch man page for detailed information on the options.
-
-#### squeue/scontrol/sinfo
-
-Commands that display batch job and partition information .
-
-<table class="wrapped confluenceTable tablesorter tablesorter-default"
-role="grid" data-resolved="">
-<thead>
-<tr class="header tablesorter-headerRow" role="row">
-<th style="text-align: center;"
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-style="user-select: none" data-column="0" tabindex="0" scope="col"
-role="columnheader" aria-disabled="false" data-unselectable="on"
-aria-sort="none"
-aria-label="SLURM EXAMPLE COMMAND: No sort applied, activate to apply an ascending sort"><div
-class="tablesorter-header-inner">
-SLURM EXAMPLE COMMAND
-</div></th>
-<th style="text-align: center;"
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-style="user-select: none" data-column="1" tabindex="0" scope="col"
-role="columnheader" aria-disabled="false" data-unselectable="on"
-aria-sort="none"
-aria-label="DESCRIPTION: No sort applied, activate to apply an ascending sort"><div
-class="tablesorter-header-inner">
-DESCRIPTION
-</div></th>
-</tr>
-</thead>
-<tbody aria-live="polite" aria-relevant="all">
-<tr class="odd" role="row">
-<td class="confluenceTd"><span style="color: rgb(0,0,0);">squeue
--a</span></td>
-<td class="confluenceTd">List the status of all jobs on the system.</td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><span style="color: rgb(0,0,0);">squeue -u
-$USER</span></td>
-<td class="confluenceTd">List the status of all your jobs in the batch
-system.</td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd"><span style="color: rgb(0,0,0);">squeue -j
-JobID</span></td>
-<td class="confluenceTd">List nodes allocated to a running job in
-addition to basic information..</td>
-</tr>
-<tr class="even" role="row">
-<td class="confluenceTd"><span style="color: rgb(0,0,0);">scontrol show
-job JobID</span></td>
-<td class="confluenceTd">List detailed information on a particular
-job.</td>
-</tr>
-<tr class="odd" role="row">
-<td class="confluenceTd"><span style="color: rgb(0,0,0);">sinfo
--a</span></td>
-<td class="confluenceTd">List summary information on all the
-partition.</td>
-</tr>
-</tbody>
-</table>
-
-See the manual (man) pages for other available options.
-
-  
-
-Useful Batch Job Environment Variables<span
-id="DeltaXSEDEDocumentation-slurm_environment_variables"
-class="confluence-anchor-link conf-macro output-inline" hasbody="false"
-macro-name="anchor"> </span>
-
-<table
-class="relative-table wrapped confluenceTable tablesorter tablesorter-default"
-style="width: 100.0%;" role="grid" data-resolved="">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 16%" />
-<col style="width: 53%" />
-</colgroup>
-<thead>
-<tr class="header tablesorter-headerRow" role="row">
-<th style="text-align: left;"
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-style="user-select: none" data-column="0" tabindex="0" scope="col"
-role="columnheader" aria-disabled="false" data-unselectable="on"
-aria-sort="none"
-aria-label="DESCRIPTION: No sort applied, activate to apply an ascending sort"><div
-class="tablesorter-header-inner">
-<p>DESCRIPTION</p>
-</div></th>
-<th style="text-align: left;"
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-style="user-select: none" data-column="1" tabindex="0" scope="col"
-role="columnheader" aria-disabled="false" data-unselectable="on"
-aria-sort="none"
-aria-label="SLURM ENVIRONMENT VARIABLE: No sort applied, activate to apply an ascending sort"><div
-class="tablesorter-header-inner">
-<p>SLURM ENVIRONMENT VARIABLE</p>
-</div></th>
-<th style="text-align: left;"
-class="confluenceTh tablesorter-header sortableHeader tablesorter-headerUnSorted"
-style="user-select: none" data-column="2" tabindex="0" scope="col"
-role="columnheader" aria-disabled="false" data-unselectable="on"
-aria-sort="none"
-aria-label="DETAIL DESCRIPTION: No sort applied, activate to apply an ascending sort"><div
-class="tablesorter-header-inner">
-<p>DETAIL DESCRIPTION</p>
-</div></th>
-</tr>
-</thead>
-<tbody aria-live="polite" aria-relevant="all">
-<tr class="odd" role="row">
-<td style="text-align: left;" class="confluenceTd">JobID</td>
-<td style="text-align: left;" class="confluenceTd">$SLURM_JOB_ID</td>
-<td style="text-align: left;" class="confluenceTd">Job identifier
-assigned to the job</td>
-</tr>
-<tr class="even" role="row">
-<td style="text-align: left;" class="confluenceTd">Job Submission
-Directory</td>
-<td style="text-align: left;"
-class="confluenceTd">$SLURM_SUBMIT_DIR</td>
-<td style="text-align: left;" class="confluenceTd">By default, jobs
-start in the directory that the job was submitted from. So the "cd
-$SLURM_SUBMIT_DIR" command is not needed.</td>
-</tr>
-<tr class="odd" role="row">
-<td style="text-align: left;" class="confluenceTd">Machine(node)
-list</td>
-<td style="text-align: left;" class="confluenceTd">$SLURM_NODELIST</td>
-<td style="text-align: left;" class="confluenceTd">variable name that
-contains the list of nodes assigned to the batch job</td>
-</tr>
-<tr class="even" role="row">
-<td style="text-align: left;" class="confluenceTd">Array JobID</td>
-<td style="text-align: left;"
-class="confluenceTd">$SLURM_ARRAY_JOB_ID<br />
-$SLURM_ARRAY_TASK_ID</td>
-<td style="text-align: left;" class="confluenceTd">each member of a job
-array is assigned a unique identifier</td>
-</tr>
-</tbody>
-</table>
-
-See the sbatch man page for additional environment variables available.
-
-**srun**
-
-The srun command initiates an interactive job on the compute nodes.
-
-For example, the following command:
-
-`srun -A account_name --time=00:30:00 --nodes=1 --ntasks-per-node=64 \`
-
-`--mem=16g --pty /bin/bash`
-
-will run an interactive job in the default queue with a wall clock limit
-of 30 minutes, using one node and 16 cores per node. You can also use
-other sbatch options such as those documented above.
-
-After you enter the command, you will have to wait for SLURM to start
-the job. As with any job, your interactive job will wait in the queue
-until the specified number of nodes is available. If you specify a small
-number of nodes for smaller amounts of time, the wait should be shorter
-because your job will backfill among larger jobs. You will see something
-like this:
-
-`srun: job 123456 queued and waiting for resources`
-
-Once the job starts, you will see:
-
-`srun: job 123456 has been allocated resources`
-
-and will be presented with an interactive shell prompt on the launch
-node. At this point, you can use the appropriate command to start your
-program.
-
-When you are done with your work, you can use the exit command to end
-the job.
-
-**scancel**
-
-The scancel command deletes a queued job or terminates a running job.
-
--   scancel JobID deletes/terminates a job.
-
-# **Refunds**
-
-Refunds are considered, when appropriate, for jobs that failed due to
-circumstances beyond user control.
-
-XSEDE users and project that wish to request a refund should see the
-XSEDE Refund Policy section located <a
-href="https://portal.xsede.org/su-converter#:~:text=RESET-,XSEDE%20Refund%20Policy,-(v1.2)"
-class="external-link" rel="nofollow" target="_blank">here</a>.
-
-Other allocated users and projects wishing to request a refund
-should email <a href="mailto:help@ncsa.illinois.edu" class="external-link"
-rel="nofollow" target="_blank">help@ncsa.illinois.edu</a>. Please
-include the batch job ids and the standard error and output files
-produced by the job(s). 
-
-# **Visualization**
-
-Delta A40 nodes support NVIDIA raytracing hardware.
-
--   <span style="color: rgb(165,173,186);">describe visualization
-    capabilities & software.</span>
--   <span style="color: rgb(165,173,186);">how to establish
-    VNC/DVC/remote desktop</span>
-
-# **Containers**
-
-## Singularity
-
-Container support on Delta is provided by Singularity. 
-
-Docker images can be converted to Singularity sif format via the
-`singularity pull ` command. Commands can be run from within a container
-using `singularity run` command.
-
-If you encounter quota issues with Singularity caching in
-`~/.singularity` , the environment variable `SINGULARITY_CACHEDIR` can
-be used to use a different location such as a scratch space. 
-
-Your $HOME is automatically available from containers run via
-Singularity.  You can "pip3 install --user" against a container's
-python, setup virtualenv's or similar while useing a containerized
-application.  Just run the container's /bin/bash to get a
-Singularity&gt; prompt.  Here's an srun example of that with tensorflow:
-
-**srun the bash from a container to interact with programs inside it**
-<span class="collapse-source expand-control" style=""><span
-class="expand-control-icon icon"> </span><span
-class="expand-control-text">Expand source</span></span>
-
-<a href="#"
-class="toolbar_item command_expandSource expandSource">expand source</a><a href="#" class="toolbar_item command_help help">?</a>
-
-<table data-border="0" data-cellpadding="0" data-cellspacing="0">
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td class="code"><div class="container"
-title="Hint: double-click to select code">
-<div class="line number1 index0 alt2">
-<code class="sourceCode java">$ srun \</code>
-</div>
-<div class="line number2 index1 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>mem<span
-class="op">=</span><span class="er">32</span>g \</code>
-</div>
-<div class="line number3 index2 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>nodes<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java">\</code>
-</div>
-<div class="line number4 index3 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>ntasks<span
-class="op">-</span>per<span class="op">-</span>node<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java">\</code>
-</div>
-<div class="line number5 index4 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>cpus<span
-class="op">-</span>per<span class="op">-</span>task<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java">\</code>
-</div>
-<div class="line number6 index5 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>partition<span
-class="op">=</span>gpuA100x4 \</code>
-</div>
-<div class="line number7 index6 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>account<span
-class="op">=</span>bbka<span class="op">-</span>delta<span
-class="op">-</span>gpu \</code>
-</div>
-<div class="line number8 index7 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>gpus<span
-class="op">-</span>per<span class="op">-</span>node<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java">\</code>
-</div>
-<div class="line number9 index8 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>gpus<span
-class="op">-</span>per<span class="op">-</span>task<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java">\</code>
-</div>
-<div class="line number10 index9 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>gpu<span
-class="op">-</span>bind<span class="op">=</span>verbose<span
-class="op">,</span>per_task<span class="op">:</span></code><code
-class="sourceCode java"><span class="dv">1</span></code> <code
-class="sourceCode java">\</code>
-</div>
-<div class="line number11 index10 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">--</span>pty \</code>
-</div>
-<div class="line number12 index11 alt1">
-<code class="sourceCode java"> </code><code
-class="sourceCode java">singularity run <span class="op">--</span>nv
-\</code>
-</div>
-<div class="line number13 index12 alt2">
-<code class="sourceCode java"> </code><code
-class="sourceCode java"><span class="op">/</span>sw<span
-class="op">/</span>external<span class="op">/</span>NGC<span
-class="op">/</span>tensorflow<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">22.02</span></code><code
-class="sourceCode java"><span class="op">-</span>tf2<span
-class="op">-</span>py3 <span class="op">/</span>bin<span
-class="op">/</span>bash </code>
-</div>
-<div class="line number14 index13 alt1">
-<code class="sourceCode java"># job starts <span
-class="kw">...</span></code>
-</div>
-<div class="line number15 index14 alt2">
-<code class="sourceCode java">Singularity<span class="op">&gt;</span>
-hostname</code>
-</div>
-<div class="line number16 index15 alt1">
-<code class="sourceCode java">gpua068<span class="op">.</span><span
-class="fu">delta</span><span class="op">.</span><span
-class="fu">internal</span><span class="op">.</span><span
-class="fu">ncsa</span><span class="op">.</span><span
-class="fu">edu</span></code>
-</div>
-<div class="line number17 index16 alt2">
-<code class="sourceCode java">Singularity<span class="op">&gt;</span>
-which python  # the python in the container</code>
-</div>
-<div class="line number18 index17 alt1">
-<code class="sourceCode java"><span class="op">/</span>usr<span
-class="op">/</span>bin<span class="op">/</span>python</code>
-</div>
-<div class="line number19 index18 alt2">
-<code class="sourceCode java">Singularity<span class="op">&gt;</span>
-python <span class="op">--</span>version</code>
-</div>
-<div class="line number20 index19 alt1">
-<code class="sourceCode java">Python </code><code
-class="sourceCode java"><span class="fl">3.8</span></code><code
-class="sourceCode java"><span class="op">.</span></code><code
-class="sourceCode java"><span class="dv">10</span></code>
-</div>
-<div class="line number21 index20 alt2">
-<code class="sourceCode java">Singularity<span
-class="op">&gt;</span></code>
-</div>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-  
-
-## NVIDIA NGC Containers
-
-Delta provides NVIDIA NGC Docker containers that we have pre-built with
-Singularity.  Look for the latest binary containers in
-**/sw/external/NGC/** . The containers are used as shown in the sample
-scripts below:
-
-**PyTorch example script**
-
-<a href="#" class="toolbar_item command_help help">?</a>
-
-<table data-border="0" data-cellpadding="0" data-cellspacing="0">
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td class="code"><div class="container"
-title="Hint: double-click to select code">
-<div class="line number1 index0 alt2">
-<code class="sourceCode bash"><span class="co">#!/bin/bash</span></code>
-</div>
-<div class="line number2 index1 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---mem=64g</span></code>
-</div>
-<div class="line number3 index2 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---nodes=1</span></code>
-</div>
-<div class="line number4 index3 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---ntasks-per-node=1</span></code>
-</div>
-<div class="line number5 index4 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---cpus-per-task=64     # &lt;- match to OMP_NUM_THREADS, 64 requests
-whole node</span></code>
-</div>
-<div class="line number6 index5 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---partition=gpuA100x4 # &lt;- one of: gpuA100x4 gpuA40x4 gpuA100x8
-gpuMI100x8</span></code>
-</div>
-<div class="line number7 index6 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---account=bbka-delta-gpu</span></code>
-</div>
-<div class="line number8 index7 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---job-name=pytorchNGC</span></code>
-</div>
-<div class="line number9 index8 alt2">
-<code class="sourceCode bash"><span class="co">### GPU options
-</span><span class="al">###</span></code>
-</div>
-<div class="line number10 index9 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpus-per-node=1</span></code>
-</div>
-<div class="line number11 index10 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpus-per-task=1</span></code>
-</div>
-<div class="line number12 index11 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpu-bind=verbose,per_task:1 </span></code>
-</div>
-<div class="line number13 index12 alt2">
-<code class="sourceCode bash"><span class="ex"> </span></code> 
-</div>
-<div class="line number14 index13 alt1">
-<code class="sourceCode bash"><span class="ex">module</span> reset
-</code><code class="sourceCode bash"><span class="co"># drop modules and
-explicitly load the ones needed</span></code>
-</div>
-<div class="line number15 index14 alt2">
-<code class="sourceCode bash"><span
-class="ex">             </span></code><code
-class="sourceCode bash"><span class="co"># (good job metadata and
-reproducibility)</span></code>
-</div>
-<div class="line number16 index15 alt1">
-<code class="sourceCode bash"><span
-class="ex">             </span></code><code
-class="sourceCode bash"><span class="co"># $WORK and $SCRATCH are now
-set</span></code>
-</div>
-<div class="line number17 index16 alt2">
-<code class="sourceCode bash"><span class="ex">module</span> list 
-</code><code class="sourceCode bash"><span class="co"># job
-documentation and metadata</span></code>
-</div>
-<div class="line number18 index17 alt1">
- 
-</div>
-<div class="line number19 index18 alt2">
-<code class="sourceCode bash"><span class="bu">echo</span></code> <code
-class="sourceCode bash"><span class="st">&quot;job is starting on
-</span><span class="kw">`</span><span class="fu">hostname</span><span
-class="kw">`</span><span class="st">&quot;</span></code>
-</div>
-<div class="line number20 index19 alt1">
- 
-</div>
-<div class="line number21 index20 alt2">
-<code class="sourceCode bash"><span class="co"># run the container
-binary with arguments: python3 &lt;program.py&gt;</span></code>
-</div>
-<div class="line number22 index21 alt1">
-<code class="sourceCode bash"><span class="ex">singularity</span> run
-<span class="at">--nv</span> <span class="dt">\</span></code>
-</div>
-<div class="line number23 index22 alt2">
-<code class="sourceCode bash"><span class="ex"> </span></code><code
-class="sourceCode bash"><span
-class="ex">/sw/external/NGC/pytorch</span></code><code
-class="sourceCode bash"><span class="ex">:22.02-py3</span> python3
-tensor_gpu.py</code>
-</div>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-**Tensorflow example script** <span
-class="collapse-source expand-control" style=""><span
-class="expand-control-icon icon"> </span><span
-class="expand-control-text">Expand source</span></span>
-
-<a href="#"
-class="toolbar_item command_expandSource expandSource">expand source</a><a href="#" class="toolbar_item command_help help">?</a>
-
-<table data-border="0" data-cellpadding="0" data-cellspacing="0">
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td class="code"><div class="container"
-title="Hint: double-click to select code">
-<div class="line number1 index0 alt2">
-<code class="sourceCode bash"><span class="co">#!/bin/bash</span></code>
-</div>
-<div class="line number2 index1 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---mem=64g</span></code>
-</div>
-<div class="line number3 index2 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---nodes=1</span></code>
-</div>
-<div class="line number4 index3 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---ntasks-per-node=1</span></code>
-</div>
-<div class="line number5 index4 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---cpus-per-task=64     # &lt;- match to OMP_NUM_THREADS</span></code>
-</div>
-<div class="line number6 index5 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---partition=gpuA100x4 # &lt;- one of: gpuA100x4 gpuA40x4 gpuA100x8
-gpuMI100x8</span></code>
-</div>
-<div class="line number7 index6 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---account=bbka-delta-gpu</span></code>
-</div>
-<div class="line number8 index7 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---job-name=tfNGC</span></code>
-</div>
-<div class="line number9 index8 alt2">
-<code class="sourceCode bash"><span class="co">### GPU options
-</span><span class="al">###</span></code>
-</div>
-<div class="line number10 index9 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpus-per-node=1</span></code>
-</div>
-<div class="line number11 index10 alt2">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpus-per-task=1</span></code>
-</div>
-<div class="line number12 index11 alt1">
-<code class="sourceCode bash"><span class="co">#SBATCH
---gpu-bind=verbose,per_task:1</span></code>
-</div>
-<div class="line number13 index12 alt2">
-<code class="sourceCode bash"><span class="ex"> </span></code> 
-</div>
-<div class="line number14 index13 alt1">
-<code class="sourceCode bash"><span class="ex">module</span> reset
-</code><code class="sourceCode bash"><span class="co"># drop modules and
-explicitly load the ones needed</span></code>
-</div>
-<div class="line number15 index14 alt2">
-<code class="sourceCode bash"><span
-class="ex">             </span></code><code
-class="sourceCode bash"><span class="co"># (good job metadata and
-reproducibility)</span></code>
-</div>
-<div class="line number16 index15 alt1">
-<code class="sourceCode bash"><span
-class="ex">             </span></code><code
-class="sourceCode bash"><span class="co"># $WORK and $SCRATCH are now
-set</span></code>
-</div>
-<div class="line number17 index16 alt2">
-<code class="sourceCode bash"><span class="ex">module</span> list 
-</code><code class="sourceCode bash"><span class="co"># job
-documentation and metadata</span></code>
-</div>
-<div class="line number18 index17 alt1">
- 
-</div>
-<div class="line number19 index18 alt2">
-<code class="sourceCode bash"><span class="bu">echo</span></code> <code
-class="sourceCode bash"><span class="st">&quot;job is starting on
-</span><span class="kw">`</span><span class="fu">hostname</span><span
-class="kw">`</span><span class="st">&quot;</span></code>
-</div>
-<div class="line number20 index19 alt1">
- 
-</div>
-<div class="line number21 index20 alt2">
-<code class="sourceCode bash"><span class="co"># run the container
-binary with arguments: python3 &lt;program.py&gt;</span></code>
-</div>
-<div class="line number22 index21 alt1">
-<code class="sourceCode bash"><span class="ex">singularity</span> run
-<span class="at">--nv</span> <span class="dt">\</span></code>
-</div>
-<div class="line number23 index22 alt2">
-<code class="sourceCode bash"><span class="ex"> </span></code><code
-class="sourceCode bash"><span
-class="ex">/sw/external/NGC/tensorflow</span></code><code
-class="sourceCode bash"><span class="ex">:22.02-tf2-py3</span> python3
-<span class="dt">\</span></code>
-</div>
-<div class="line number24 index23 alt1">
-<code class="sourceCode bash"><span class="ex"> </span></code><code
-class="sourceCode bash"><span class="ex">tf_matmul.py</span></code>
-</div>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-## Container list (as of March, 2022)
-
-**catalog.txt**
-
-<a href="#" class="toolbar_item command_help help">?</a>
-
-<table data-border="0" data-cellpadding="0" data-cellspacing="0">
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td class="code"><div class="container"
-title="Hint: double-click to select code">
-<div class="line number1 index0 alt2">
-<code class="sourceCode java">caffe<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">20.03</span></code><code
-class="sourceCode java"><span class="op">-</span>py3</code>
-</div>
-<div class="line number2 index1 alt1">
-<code class="sourceCode java">caffe2<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">18.08</span></code><code class="sourceCode java"><span
-class="op">-</span>py3</code>
-</div>
-<div class="line number3 index2 alt2">
-<code class="sourceCode java">cntk<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">18.08</span></code><code
-class="sourceCode java"><span class="op">-</span>py3 <span
-class="op">,</span> Microsoft Cognitive <span
-class="bu">Toolkit</span></code>
-</div>
-<div class="line number4 index3 alt1">
-<code class="sourceCode java">digits<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">21.09</span></code><code class="sourceCode java"><span
-class="op">-</span>tensorflow<span class="op">-</span>py3</code>
-</div>
-<div class="line number5 index4 alt2">
-<code class="sourceCode java">lammps<span
-class="op">:</span>patch_4May2022</code>
-</div>
-<div class="line number6 index5 alt1">
-<code class="sourceCode java">matlab<span
-class="op">:</span>r2021b</code>
-</div>
-<div class="line number7 index6 alt2">
-<code class="sourceCode java">mxnet<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">21.09</span></code><code
-class="sourceCode java"><span class="op">-</span>py3</code>
-</div>
-<div class="line number8 index7 alt1">
-<code class="sourceCode java">namd<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">2.13</span></code><code
-class="sourceCode java"><span class="op">-</span>multinode</code>
-</div>
-<div class="line number9 index8 alt2">
-<code class="sourceCode java">pytorch<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">22.02</span></code><code class="sourceCode java"><span
-class="op">-</span>py3</code>
-</div>
-<div class="line number10 index9 alt1">
-<code class="sourceCode java">tensorflow<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">22.02</span></code><code class="sourceCode java"><span
-class="op">-</span>tf1<span class="op">-</span>py3</code>
-</div>
-<div class="line number11 index10 alt2">
-<code class="sourceCode java">tensorflow<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">22.02</span></code><code class="sourceCode java"><span
-class="op">-</span>tf2<span class="op">-</span>py3</code>
-</div>
-<div class="line number12 index11 alt1">
-<code class="sourceCode java">tensorrt<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">22.02</span></code><code class="sourceCode java"><span
-class="op">-</span>py3</code>
-</div>
-<div class="line number13 index12 alt2">
-<code class="sourceCode java">theano<span
-class="op">:</span></code><code class="sourceCode java"><span
-class="fl">18.08</span></code>
-</div>
-<div class="line number14 index13 alt1">
-<code class="sourceCode java">torch<span class="op">:</span></code><code
-class="sourceCode java"><span class="fl">18.08</span></code><code
-class="sourceCode java"><span class="op">-</span>py2</code>
-</div>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-see
-also: <a href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers"
-class="external-link" rel="nofollow"
-target="_blank">https://catalog.ngc.nvidia.com/orgs/nvidia/containers</a>
-
-## Other Containers
-
-### Extreme-scale Scientific Software Stack (E4S)
-
-The E4S container with GPU (cuda and rocm) support is provided for users
-of specific ECP packages made available by the E4S project
-(<a href="https://e4s-project.github.io/" class="external-link"
-rel="nofollow" target="_blank">https://e4s-project.github.io/</a>). The
-singularity image is available as :
-
-    /sw/external/E4S/e4s-gpu-x86_64.sif
-
-    To use E4S with NVIDIA GPUs
-
-<a href="#" class="toolbar_item command_help help">?</a>
-
-<table data-border="0" data-cellpadding="0" data-cellspacing="0">
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td class="code"><div class="container"
-title="Hint: double-click to select code">
-<div class="line number1 index0 alt2">
-<code class="sourceCode java">$ srun <span
-class="op">--</span>account<span class="op">=</span>account_name <span
-class="op">--</span>partition<span class="op">=</span>gpuA100<span
-class="op">-</span>interactive \</code>
-</div>
-<div class="line number2 index1 alt1">
-<code class="sourceCode java">  </code><code
-class="sourceCode java"><span class="op">--</span>nodes<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java"><span
-class="op">--</span>gpus<span class="op">-</span>per<span
-class="op">-</span>node<span class="op">=</span></code><code
-class="sourceCode java"><span class="dv">1</span></code> <code
-class="sourceCode java"><span class="op">--</span>tasks<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java"><span
-class="op">--</span>tasks<span class="op">-</span>per<span
-class="op">-</span>node<span class="op">=</span></code><code
-class="sourceCode java"><span class="dv">1</span></code> <code
-class="sourceCode java">\ </code>
-</div>
-<div class="line number3 index2 alt2">
-<code class="sourceCode java">  </code><code
-class="sourceCode java"><span class="op">--</span>cpus<span
-class="op">-</span>per<span class="op">-</span>task<span
-class="op">=</span></code><code class="sourceCode java"><span
-class="dv">1</span></code> <code class="sourceCode java"><span
-class="op">--</span>mem<span class="op">=</span><span
-class="er">20</span>g \</code>
-</div>
-<div class="line number4 index3 alt1">
-<code class="sourceCode java">  </code><code
-class="sourceCode java"><span class="op">--</span>pty bash</code>
-</div>
-<div class="line number5 index4 alt2">
-<code class="sourceCode java">$ singularity exec <span
-class="op">--</span>cleanenv <span class="op">/</span>sw<span
-class="op">/</span>external<span class="op">/</span>E4S<span
-class="op">/</span>e4s<span class="op">-</span>gpu<span
-class="op">-</span>x86_64<span class="op">.</span><span
-class="fu">sif</span> \</code>
-</div>
-<div class="line number6 index5 alt1">
-<code class="sourceCode java">  </code><code
-class="sourceCode java"><span class="op">/</span>bin<span
-class="op">/</span>bash <span class="op">--</span>rcfile <span
-class="op">/</span>etc<span class="op">/</span>bash<span
-class="op">.</span><span class="fu">bashrc</span></code>
-</div>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-The spack package inside of the image will interact with a local spack
-installation. If  ~/.spack directory exists, it might need to be
-renamed. 
-
-More information can be found at
-<a href="https://e4s-project.github.io/download.html"
-class="external-link" rel="nofollow"
-target="_blank">https://e4s-project.github.io/download.html</a>
-
-# <span style="color: rgb(165,173,186);">**Protected Data (N/A)**</span>
-
-...
-
-# **Help**
-
-For assistance with the use of Delta
-
--   XSEDE users can create a ticket via the user portal at
-    <a href="https://portal.xsede.org/web/xup/help-desk"
-    class="external-link" rel="nofollow"
-    target="_blank">https://portal.xsede.org/web/xup/help-desk</a>
--   All other users (Illinois allocations, Diversity Allocations, etc)
-    please send email to help@ncsa.illinois.edu.
-
-# **Acknowledge**
-
-To acknowledge the NCSA Delta system in particular, please include the
-following
-
-This research is part of the Delta research computing project, which is
-supported by the National Science Foundation (award OCI 2005572), and
-the State of Illinois. Delta is a joint effort of the University of
-Illinois at Urbana-Champaign and its National Center for Supercomputing
-Applications.
-
-To include acknowledgement of XSEDE contributions to a publication or
-presentation please see
-<a href="https://portal.xsede.org/acknowledge" class="external-link"
-rel="nofollow" target="_blank">https://portal.xsede.org/acknowledge</a>
-and <a href="https://www.xsede.org/for-users/acknowledgement"
-class="external-link" rel="nofollow"
-target="_blank">https://www.xsede.org/for-users/acknowledgement</a>.
-
-# **References**
-
-Supporting documentation resources:
-
-<a href="https://www.rcac.purdue.edu/knowledge/anvil"
-class="external-link" rel="nofollow"
-target="_blank">https://www.rcac.purdue.edu/knowledge/anvil</a>
-
-<a href="https://nero-docs.stanford.edu/jupyter-slurm.html"
-class="external-link" rel="nofollow"
-target="_blank">https://nero-docs.stanford.edu/jupyter-slurm.html</a>
-
-  
+                     ``#!/bin/bash``
+
+                  .. container:: line number2 index1 alt1
+
+                     ``#SBATCH --mem=16g``
+
+                  ``#SBATCH --time=00:10:00      # hh:mm:ss for the job``
+
+               .. container:: line number10 index9 alt1
+
+                  ``### GPU options ###``
+
+               .. container:: line number11 index10 alt2
+
+                  ``##SBATCH --gpus-per-node=2``
+
+               .. container:: line number12 index11 alt1
+
+                  ``##SBATCH --gpu-bind=none     # <- or closest ##SBATCH --mp;      ``\ ``# (good job metadata and reproducibility)``
+
+               .. container:: line number17 index16 alt2
+
+                  ``             ``\ ``# $WORK and $SCRATCH are now set``
+
+               .. container:: line number18 index17 alt1
+
+                  ``module load gcc``\ ``/11``\ ``.2.0 openmpi ``\ ``# ... or any appropriate modules``
+
+               .. container::
+               line numbody></table></div></div> </div> </div></li><li><p class=
+
+                  OpenMP   
+
+                  .. container:: code panel pdl conf-macro output-block
+
+                     .. container::
+                     codeHeader panelHeader pdl hide-border-bottom
+
+                        **openmp example script**  Expand sourcetd
+                        class="code">
+
+                        .. container::
+
+                           .. container:: line number1 index0 alt2
+
+                              ``#!/bin/bash``
+
+                           .. container:: line number2 index1 alt1
+
+                              ``#SBATCH --mem=16g``
+
+                           .. container:: line number3 index2 alt2
+
+                              ``#SBATCH --nodes=1``
+
+                           .. container:: line number4 index3 alt1
+
+                              ``#SBATCH --ntasks-per-node=1``
+
+                              .. container:: line number9 index8 alt2
+
+                                 ``#SBATCH --time=00:10:00      # hh:mm:ss for the job``
+
+                              .. container:: line number10 index9 alt1
+
+                                 ``### GPU options ###``
+
+                              .. container:: line number11 index10 alt2
+
+                                 ``##SBATCH --gpus-per-node=2``
+
+                              .. container:: line number12 index11 alt1
+
+                                 ``##SBATCH --gpu-bind=none     # <- o needed``
+
+                              .. container:: line number17 index16 alt2
+
+                                 ``             ``\ ``# (good job metadata and reproducibility)``
+
+                              .. container:: line number18 index17 alt1
+
+                                 ``             ``\ ``# $WORK and $SCRATCH are now set``
+
+                              .. container:: line number19 index18 alt2
+
+                                 ``mo/div>``
+
+                                 .. container::
+                                 line number22 index21 alt1
+
+                                    ``export`` ``OMP_NUM_THREADS=32``
+
+                                 .. container::
+                                 line number23 index22 alt2
+
+                                    ``srun stream_gcc``
+
+   -  Parametric / Array / HTC jobs
+
+   .. rubric:: **Job Management **
+      :name: DeltaXSEDEDocumentation-JobManagement
+
+   Batch jobs are submitted through a *job script*  (as in the examples
+   above) using the sbatch command. Job scripts generally start with a
+   series of SLURM *directives* that describe requirements of the job
+   such as number of nodes, wall time required, etc… to the batch
+   system/scheduler (SLURM directives can also be specified as options
+   on the sbatch command line; command line options take precedence over
+   those in the script). The rest of the batch script consists of user
+   commands.
+
+   The syntax for sbatch is:
+
+   **sbatch** [list of sbatch options] script_name
+
+   Refer to the sbatch man page for detailed information on the options.
+
+   .. rubric:: squeue/scontrol/sinfo
+      :name: DeltaXSEDEDocumentation-squeue/scontrol/sinfo
+
+   Commands that display batch job and partition information .
+
+   .. container:: table-wrap
+
+      +----------------------------------+----------------------------------+
+      | .. container::                   | .. container::                   |
+      | tablesorter-header-inner         | tablesorter-header-inner         |
+      |                                  |                                  |
+      |    SLURM EXAMPLE COMMAND         |    DESCRIPTION                   |
+      +==================================+==================================+
+      | squeue -a                        | List the status of all jobs on   |
+      |                                  | the system.                      |
+      +----------------------------------+----------------------------------+
+      | squeue -u $USER                  | List the status of all your jobs |
+      |                                  | in the batch system.             |
+      +----------------------------------+----------------------------------+
+      | squeue -j JobID                  | List nodes allocated to a        |
+      |                                  | running job in addition to basic |
+      |                                  | information..                    |
+      +----------------------------------+----------------------------------+
+      | scontrol show job JobID          | List detailed information on a   |
+      |                                  | particular job.                  |
+      +----------------------------------+----------------------------------+
+      | sinfo -a                         | List summary information on all  |
+      |                                  | the partition.                   |
+      +----------------------------------+----------------------------------+
+
+   See the manual (man) pages for other available options.
+
+   | 
+
+   Useful Batch Job Environment Variables
+
+   .. container:: table-wrap
+
+      +-------+-----------+-------------------------------------+
+      | .. c  | .. co     | .. container::                      |
+      | ontai | ntainer:: | tablesorter-header-inner            |
+      | ner:: | tables    |                                     |
+      | tabl  | orter-hea |    DETAIL DESCRIPTION               |
+      | esort | der-inner |                                     |
+      | er-he |           |                                     |
+      | ader- |    SLURM  |                                     |
+      | inner |    EN     |                                     |
+      |       | VIRONMENT |                                     |
+      |    D  |           |                                     |
+      | ESCRI |  VARIABLE |                                     |
+      | PTION |           |                                     |
+      +=======+===========+=====================================+
+      | JobID | $SLU      | Job identifier assigned to the job  |
+      |       | RM_JOB_ID |                                     |
+      +-------+-----------+-------------------------------------+
+      | Job   | $SLURM_S  | By default, jobs start in the       |
+      | Submi | UBMIT_DIR | directory that the job was          |
+      | ssion |           | submitted from. So the "cd          |
+      | Dire  |           | $SLURM_SUBMIT_DIR" command is not   |
+      | ctory |           | needed.                             |
+      +-------+-----------+-------------------------------------+
+      | Mac   | $SLURM    | variable name that contains the     |
+      | hine( | _NODELIST | list of nodes assigned to the batch |
+      | node) |           | job                                 |
+      | list  |           |                                     |
+      +-------+-----------+-------------------------------------+
+      | Array | $         | each member of a job array is       |
+      | JobID | SLURM_ARR | assigned a unique identifier        |
+      |       | AY_JOB_ID |                                     |
+      |       | $S        |                                     |
+      |       | LURM_ARRA |                                     |
+      |       | Y_TASK_ID |                                     |
+      +-------+-----------+-------------------------------------+
+
+   See the sbatch man page for additional environment variables
+   available.
+
+   **srun**
+
+   The srun command initiates an interactive job on the compute nodes.
+
+   For example, the following command:
+
+   ``srun -A account_name --time=00:30:00 --nodes=1 --ntasks-per-node=64 \``
+
+   ``--mem=16g --pty /bin/bash``
+
+   will run an interactive job in the default queue with a wall clock
+   limit of 30 minutes, using one node and 16 cores per node. You can
+   also use other sbatch options such as those documented above.
+
+   After you enter the command, you will have to wait for SLURM to start
+   the job. As with any job, your interactive job will wait in the queue
+   until the specified number of nodes is available. If you specify a
+   small number of nodes for smaller amounts of time, the wait should be
+   shorter because your job will backfill among larger jobs. You will
+   see something like this:
+
+   ``srun: job 123456 queued and waiting for resources``
+
+   Once the job starts, you will see:
+
+   ``srun: job 123456 has been allocated resources``
+
+   and will be presented with an interactive shell prompt on the launch
+   node. At this point, you can use the appropriate command to start
+   your program.
+
+   When you are done with your work, you can use the exit command to end
+   the job.
+
+   **scancel**
+
+   The scancel command deletes a queued job or terminates a running job.
+
+   -  scancel JobID deletes/terminates a job.
+
+   .. rubric:: **Refunds**
+      :name: DeltaXSEDEDocumentation-Refunds
+
+   Refunds are considered, when appropriate, for jobs that failed due to
+   circumstances beyond user control.
+
+   XSEDE users and project that wish to request a refund should see the
+   XSEDE Refund Policy section located
+   `here <https://portal.xsede.org/su-converter#:~:text=RESET-,XSEDE%20Refund%20Policy,-(v1.2)>`__.
+
+   Other allocated users and projects wishing to request a refund
+   should email \ help@ncsa.illinois.edu. Please include the batch job
+   ids and the standard error and output files produced by the job(s). 
+
+   .. rubric:: **Visualization**
+      :name: DeltaXSEDEDocumentation-Visualization
+
+   Delta A40 nodes support NVIDIA raytracing hardware.
+
+   -  describe visualization capabilities & software.
+   -  how to establish VNC/DVC/remote desktop
+
+   .. rubric:: **Containers**
+      :name: DeltaXSEDEDocumentation-Containers
+
+   .. rubric:: Singularity
+      :name: DeltaXSEDEDocumentation-Singularity
+
+   Container support on Delta is provided by Singularity. 
+
+   Docker images can be converted to Singularity sif format via the
+   ``singularity pull`` command. Commands can be run from within a
+   container using ``singularity run``\  command.
+
+   If you encounter quota issues with Singularity caching in
+   ``~/.singularity`` , the environment variable
+   ``SINGULARITY_CACHEDIR`` can be used to use a different location such
+   as a scratch space. 
+
+   Your $HOME is automatically available from containers run via
+   Singularity.  You can "pip3 install --user" against a container's
+   python, setup virtualenv's or similar while useing a containerized
+   application.  Just run the container's /bin/bash to get a
+   Singularity> prompt.  Here's an srun example of that with tensorflow:
+
+   .. container:: code panel pdl conf-macro output-block
+
+      .. container:: codeHeader panelHeader pdl hide-border-bottom
+
+         **srun the bash from a container to interact with programs
+         inside it**  Expand source
+
+      .. container:: codeContent panelContent pdl hide-toolbar
+
+         .. container::
+
+            .. container::
+            syntaxhighlighter collapsed sh-confluence nogutter java
+               :name: highlighter_213490
+
+               .. container:: toolbar
+
+                  `expand source <#>`__\ `? <#>`__
+
+               +-----------------------------------------------------------------------+
+               | .. container::                                                        |
+               |                                                                       |
+               |    .. container:: line number1 index0 alt2                            |
+               |                                                                       |
+               |       ``$ srun \``                                                    |
+               |                                                                       |
+               |    .. container:: line number2 index1 alt1                            |
+               |                                                                       |
+               |       `` ``\ ``--mem=32g \``                                          |
+               |                                                                       |
+               |    .. container:: line number3 index2 alt2                            |
+               |                                                                       |
+               |       `` ``\ ``--nodes=``\ ``1`` ``\``                                |
+               |                                                                       |
+               |    .. container:: line number4 index3 alt1                            |
+               |                                                                       |
+               |       `` ``\ ``--ntasks-per-node=``\ ``1`` ``\``                      |
+               |                                                                       |
+               |    .. container:: line number5 index4 alt2                            |
+               |                                                                       |
+               |       `` ``\ ``--cpus-per-task=``\ ``1`` ``\``                        |
+               |                                                                       |
+               |    .. container:: line number6 index5 alt1                            |
+               |                                                                       |
+               |       `` ``\ ``--partition=gpuA100x4 \``                              |
+               |                                                                       |
+               |    .. container:: line number7 index6 alt2                            |
+               |                                                                       |
+               |       `` ``\ ``--account=bbka-delta-gpu \``                           |
+               |                                                                       |
+               |    .. container:: line number8 index7 alt1                            |
+               |                                                                       |
+               |       `` ``\ ``--gpus-per-node=``\ ``1`` ``\``                        |
+               |                                                                       |
+               |    .. container:: line number9 index8 alt2                            |
+               |                                                                       |
+               |       `` ``\ ``--gpus-per-task=``\ ``1`` ``\``                        |
+               |                                                                       |
+               |    .. container:: line number10 index9 alt1                           |
+               |                                                                       |
+               |       `` ``\ ``--gpu-bind=verbose,per_task:``\ ``1`` ``\``            |
+               |                                                                       |
+               |    .. container:: line number11 index10 alt2                          |
+               |                                                                       |
+               |       `` ``\ ``--pty \``                                              |
+               |                                                                       |
+               |    .. container:: line number12 index11 alt1                          |
+               |                                                                       |
+               |       `` ``\ ``singularity run --nv \``                               |
+               |                                                                       |
+               |    .. container:: line number13 index12 alt2                          |
+               |                                                                       |
+               |       `` ``                                                           |
+               | \ ``/sw/external/NGC/tensorflow:``\ ``22.02``\ ``-tf2-py3 /bin/bash`` |
+               |                                                                       |
+               |    .. container:: line number14 index13 alt1                          |
+               |                                                                       |
+               |       ``# job starts ...``                                            |
+               |                                                                       |
+               |    .. container:: line number15 index14 alt2                          |
+               |                                                                       |
+               |       ``Singularity> hostname``                                       |
+               |                                                                       |
+               |    .. container:: line number16 index15 alt1                          |
+               |                                                                       |
+               |       ``gpua068.delta.internal.ncsa.edu``                             |
+               |                                                                       |
+               |    .. container:: line number17 index16 alt2                          |
+               |                                                                       |
+               |       ``Singularity> which python  # the python in the container``    |
+               |                                                                       |
+               |    .. container:: line number18 index17 alt1                          |
+               |                                                                       |
+               |       ``/usr/bin/python``                                             |
+               |                                                                       |
+               |    .. container:: line number19 index18 alt2                          |
+               |                                                                       |
+               |       ``Singularity> python --version``                               |
+               |                                                                       |
+               |    .. container:: line number20 index19 alt1                          |
+               |                                                                       |
+               |       ``Python``\ ``3.8``\ ``.``\ ``10``                              |
+               |                                                                       |
+               |    .. container:: line number21 index20 alt2                          |
+               |                                                                       |
+               |       ``Singularity>``                                                |
+               +-----------------------------------------------------------------------+
+
+   | 
+
+   .. rubric:: NVIDIA NGC Containers
+      :name: DeltaXSEDEDocumentation-NVIDIANGCContainers
+
+   Delta provides NVIDIA NGC Docker containers that we have pre-built
+   with Singularity.  Look for the latest binary containers in
+   **/sw/external/NGC/** . The containers are used as shown in the
+   sample scripts below:
+
+   .. container:: code panel pdl conf-macro output-block
+
+      .. container:: codeHeader panelHeader pdl
+
+         **PyTorch example script**
+
+      .. container:: codeContent panelContent pdl
+
+         .. container::
+
+            .. container:: syntaxhighlighter sh-confluence nogutter bash
+               :name: highlighter_512656
+
+               .. container:: toolbar
+
+                  `? <#>`__
+
+               +-----------------------------------------------------------------------+
+               | .. container::                                                        |
+               |                                                                       |
+               |    .. container:: line number1 index0 alt2                            |
+               |                                                                       |
+               |       ``#!/bin/bash``                                                 |
+               |                                                                       |
+               |    .. container:: line number2 index1 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --mem=64g``                                           |
+               |                                                                       |
+               |    .. container:: line number3 index2 alt2                            |
+               |                                                                       |
+               |       ``#SBATCH --nodes=1``                                           |
+               |                                                                       |
+               |    .. container:: line number4 index3 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --ntasks-per-node=1``                                 |
+               |                                                                       |
+               |    .. container:: line number5 index4 alt2                            |
+               |                                                                       |
+               |       ``#SBATCH --cpus-pe                                             |
+               | r-task=64     # <- match to OMP_NUM_THREADS, 64 requests whole node`` |
+               |                                                                       |
+               |    .. container:: line number6 index5 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --parti                                               |
+               | tion=gpuA100x4 # <- one of: gpuA100x4 gpuA40x4 gpuA100x8 gpuMI100x8`` |
+               |                                                                       |
+               |    .. container:: line number7 index6 alt2                            |
+               |                                                                       |
+               |       ``#SBATCH --account=bbka-delta-gpu``                            |
+               |                                                                       |
+               |    .. container:: line number8 index7 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --job-name=pytorchNGC``                               |
+               |                                                                       |
+               |    .. container:: line number9 index8 alt2                            |
+               |                                                                       |
+               |       ``### GPU options ###``                                         |
+               |                                                                       |
+               |    .. container:: line number10 index9 alt1                           |
+               |                                                                       |
+               |       ``#SBATCH --gpus-per-node=1``                                   |
+               |                                                                       |
+               |    .. container:: line number11 index10 alt2                          |
+               |                                                                       |
+               |       ``#SBATCH --gpus-per-task=1``                                   |
+               |                                                                       |
+               |    .. container:: line number12 index11 alt1                          |
+               |                                                                       |
+               |       ``#SBATCH --gpu-bind=verbose,per_task:1``                       |
+               |                                                                       |
+               |    .. container:: line number13 index12 alt2                          |
+               |                                                                       |
+               |       `` ``                                                           |
+               |                                                                       |
+               |    .. container:: line number14 index13 alt1                          |
+               |                                                                       |
+               |       ``m                                                             |
+               | odule reset``\ ``# drop modules and explicitly load the ones needed`` |
+               |                                                                       |
+               |    .. container:: line number15 index14 alt2                          |
+               |                                                                       |
+               |                                                                       |
+               |      ``             ``\ ``# (good job metadata and reproducibility)`` |
+               |                                                                       |
+               |    .. container:: line number16 index15 alt1                          |
+               |                                                                       |
+               |       ``             ``\ ``# $WORK and $SCRATCH are now set``         |
+               |                                                                       |
+               |    .. container:: line number17 index16 alt2                          |
+               |                                                                       |
+               |       ``module list ``\ ``# job documentation and metadata``          |
+               |                                                                       |
+               |    .. container:: line number18 index17 alt1                          |
+               |                                                                       |
+               |                                                                       |
+               |                                                                       |
+               |    .. container:: line number19 index18 alt2                          |
+               |                                                                       |
+               |       ``echo`` :literal:`"job is starting on `hostname`"`             |
+               |                                                                       |
+               |    .. container:: line number20 index19 alt1                          |
+               |                                                                       |
+               |                                                                       |
+               |                                                                       |
+               |    .. container:: line number21 index20 alt2                          |
+               |                                                                       |
+               |                                                                       |
+               |   ``# run the container binary with arguments: python3 <program.py>`` |
+               |                                                                       |
+               |    .. container:: line number22 index21 alt1                          |
+               |                                                                       |
+               |       ``singularity run --nv \``                                      |
+               |                                                                       |
+               |    .. container:: line number23 index22 alt2                          |
+               |                                                                       |
+               |       `` `                                                            |
+               | `\ ``/sw/external/NGC/pytorch``\ ``:22.02-py3 python3 tensor_gpu.py`` |
+               +-----------------------------------------------------------------------+
+
+   .. container:: code panel pdl conf-macro output-block
+
+      .. container:: codeHeader panelHeader pdl hide-border-bottom
+
+         **Tensorflow example script**  Expand source
+
+      .. container:: codeContent panelContent pdl hide-toolbar
+
+         .. container::
+
+            .. container::
+            syntaxhighlighter collapsed sh-confluence nogutter bash
+               :name: highlighter_589831
+
+               .. container:: toolbar
+
+                  `expand source <#>`__\ `? <#>`__
+
+               +-----------------------------------------------------------------------+
+               | .. container::                                                        |
+               |                                                                       |
+               |    .. container:: line number1 index0 alt2                            |
+               |                                                                       |
+               |       ``#!/bin/bash``                                                 |
+               |                                                                       |
+               |    .. container:: line number2 index1 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --mem=64g``                                           |
+               |                                                                       |
+               |    .. container:: line number3 index2 alt2                            |
+               |                                                                       |
+               |       ``#SBATCH --nodes=1``                                           |
+               |                                                                       |
+               |    .. container:: line number4 index3 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --ntasks-per-node=1``                                 |
+               |                                                                       |
+               |    .. container:: line number5 index4 alt2                            |
+               |                                                                       |
+               |                                                                       |
+               |      ``#SBATCH --cpus-per-task=64     # <- match to OMP_NUM_THREADS`` |
+               |                                                                       |
+               |    .. container:: line number6 index5 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --parti                                               |
+               | tion=gpuA100x4 # <- one of: gpuA100x4 gpuA40x4 gpuA100x8 gpuMI100x8`` |
+               |                                                                       |
+               |    .. container:: line number7 index6 alt2                            |
+               |                                                                       |
+               |       ``#SBATCH --account=bbka-delta-gpu``                            |
+               |                                                                       |
+               |    .. container:: line number8 index7 alt1                            |
+               |                                                                       |
+               |       ``#SBATCH --job-name=tfNGC``                                    |
+               |                                                                       |
+               |    .. container:: line number9 index8 alt2                            |
+               |                                                                       |
+               |       ``### GPU options ###``                                         |
+               |                                                                       |
+               |    .. container:: line number10 index9 alt1                           |
+               |                                                                       |
+               |       ``#SBATCH --gpus-per-node=1``                                   |
+               |                                                                       |
+               |    .. container:: line number11 index10 alt2                          |
+               |                                                                       |
+               |       ``#SBATCH --gpus-per-task=1``                                   |
+               |                                                                       |
+               |    .. container:: line number12 index11 alt1                          |
+               |                                                                       |
+               |       ``#SBATCH --gpu-bind=verbose,per_task:1``                       |
+               |                                                                       |
+               |    .. container:: line number13 index12 alt2                          |
+               |                                                                       |
+               |       `` ``                                                           |
+               |                                                                       |
+               |    .. container:: line number14 index13 alt1                          |
+               |                                                                       |
+               |       ``m                                                             |
+               | odule reset``\ ``# drop modules and explicitly load the ones needed`` |
+               |                                                                       |
+               |    .. container:: line number15 index14 alt2                          |
+               |                                                                       |
+               |                                                                       |
+               |      ``             ``\ ``# (good job metadata and reproducibility)`` |
+               |                                                                       |
+               |    .. container:: line number16 index15 alt1                          |
+               |                                                                       |
+               |       ``             ``\ ``# $WORK and $SCRATCH are now set``         |
+               |                                                                       |
+               |    .. container:: line number17 index16 alt2                          |
+               |                                                                       |
+               |       ``module list ``\ ``# job documentation and metadata``          |
+               |                                                                       |
+               |    .. container:: line number18 index17 alt1                          |
+               |                                                                       |
+               |                                                                       |
+               |                                                                       |
+               |    .. container:: line number19 index18 alt2                          |
+               |                                                                       |
+               |       ``echo`` :literal:`"job is starting on `hostname`"`             |
+               |                                                                       |
+               |    .. container:: line number20 index19 alt1                          |
+               |                                                                       |
+               |                                                                       |
+               |                                                                       |
+               |    .. container:: line number21 index20 alt2                          |
+               |                                                                       |
+               |                                                                       |
+               |   ``# run the container binary with arguments: python3 <program.py>`` |
+               |                                                                       |
+               |    .. container:: line number22 index21 alt1                          |
+               |                                                                       |
+               |       ``singularity run --nv \``                                      |
+               |                                                                       |
+               |    .. container:: line number23 index22 alt2                          |
+               |                                                                       |
+               |                                                                       |
+               |  `` ``\ ``/sw/external/NGC/tensorflow``\ ``:22.02-tf2-py3 python3 \`` |
+               |                                                                       |
+               |    .. container:: line number24 index23 alt1                          |
+               |                                                                       |
+               |       `` ``\ ``tf_matmul.py``                                         |
+               +-----------------------------------------------------------------------+
+
+   .. rubric:: Container list (as of March, 2022)
+      :name: DeltaXSEDEDocumentation-Containerlist(asofMarch,2022)
+
+   .. container:: code panel pdl conf-macro output-block
+
+      .. container:: codeHeader panelHeader pdl
+
+         **catalog.txt**
+
+      .. container:: codeContent panelContent pdl
+
+         .. container::
+
+            .. container:: syntaxhighlighter sh-confluence nogutter java
+               :name: highlighter_134830
+
+               .. container:: toolbar
+
+                  `? <#>`__
+
+               +-----------------------------------------------------------------------+
+               | .. container::                                                        |
+               |                                                                       |
+               |    .. container:: line number1 index0 alt2                            |
+               |                                                                       |
+               |       ``caffe:``\ ``20.03``\ ``-py3``                                 |
+               |                                                                       |
+               |    .. container:: line number2 index1 alt1                            |
+               |                                                                       |
+               |       ``caffe2:``\ ``18.08``\ ``-py3``                                |
+               |                                                                       |
+               |    .. container:: line number3 index2 alt2                            |
+               |                                                                       |
+               |       ``cntk:``\ ``18.08``\ ``-py3 , Microsoft Cognitive Toolkit``    |
+               |                                                                       |
+               |    .. container:: line number4 index3 alt1                            |
+               |                                                                       |
+               |       ``digits:``\ ``21.09``\ ``-tensorflow-py3``                     |
+               |                                                                       |
+               |    .. container:: line number5 index4 alt2                            |
+               |                                                                       |
+               |       ``lammps:patch_4May2022``                                       |
+               |                                                                       |
+               |    .. container:: line number6 index5 alt1                            |
+               |                                                                       |
+               |       ``matlab:r2021b``                                               |
+               |                                                                       |
+               |    .. container:: line number7 index6 alt2                            |
+               |                                                                       |
+               |       ``mxnet:``\ ``21.09``\ ``-py3``                                 |
+               |                                                                       |
+               |    .. container:: line number8 index7 alt1                            |
+               |                                                                       |
+               |       ``namd:``\ ``2.13``\ ``-multinode``                             |
+               |                                                                       |
+               |    .. container:: line number9 index8 alt2                            |
+               |                                                                       |
+               |       ``pytorch:``\ ``22.02``\ ``-py3``                               |
+               |                                                                       |
+               |    .. container:: line number10 index9 alt1                           |
+               |                                                                       |
+               |       ``tensorflow:``\ ``22.02``\ ``-tf1-py3``                        |
+               |                                                                       |
+               |    .. container:: line number11 index10 alt2                          |
+               |                                                                       |
+               |       ``tensorflow:``\ ``22.02``\ ``-tf2-py3``                        |
+               |                                                                       |
+               |    .. container:: line number12 index11 alt1                          |
+               |                                                                       |
+               |       ``tensorrt:``\ ``22.02``\ ``-py3``                              |
+               |                                                                       |
+               |    .. container:: line number13 index12 alt2                          |
+               |                                                                       |
+               |       ``theano:``\ ``18.08``                                          |
+               |                                                                       |
+               |    .. container:: line number14 index13 alt1                          |
+               |                                                                       |
+               |       ``torch:``\ ``18.08``\ ``-py2``                                 |
+               +-----------------------------------------------------------------------+
+
+   see also: https://catalog.ngc.nvidia.com/orgs/nvidia/containers
+
+   .. rubric:: Other Containers
+      :name: DeltaXSEDEDocumentation-OtherContainers
+
+   .. rubric:: Extreme-scale Scientific Software Stack (E4S)
+      :name: DeltaXSEDEDocumentation-Extreme-scaleScientificSoftwareStack(E4S)
+
+   The E4S container with GPU (cuda and rocm) support is provided for
+   users of specific ECP packages made available by the E4S project
+   (https://e4s-project.github.io/). The singularity image is available
+   as :
+
+   ::
+
+      /sw/external/E4S/e4s-gpu-x86_64.sif
+
+   ::
+
+      To use E4S with NVIDIA GPUs
+
+   .. container:: code panel pdl conf-macro output-block
+
+      .. container:: codeContent panelContent pdl
+
+         .. container::
+
+            .. container:: syntaxhighlighter sh-confluence nogutter java
+               :name: highlighter_120219
+
+               .. container:: toolbar
+
+                  `? <#>`__
+
+               +-----------------------------------------------------------------------+
+               | .. container::                                                        |
+               |                                                                       |
+               |    .. container:: line number1 index0 alt2                            |
+               |                                                                       |
+               |                                                                       |
+               |   ``$ srun --account=account_name --partition=gpuA100-interactive \`` |
+               |                                                                       |
+               |    .. container:: line number2 index1 alt1                            |
+               |                                                                       |
+               |       ``  ``\ ``--nodes=``\ ``1`` ``--gpus-per-node=``\ ``1``         |
+               |       ``--tasks=``\ ``1`` ``--tasks-per-node=``\ ``1`` ``\``          |
+               |                                                                       |
+               |    .. container:: line number3 index2 alt2                            |
+               |                                                                       |
+               |       ``  ``\ ``--cpus-per-task=``\ ``1`` ``--mem=20g \``             |
+               |                                                                       |
+               |    .. container:: line number4 index3 alt1                            |
+               |                                                                       |
+               |       ``  ``\ ``--pty bash``                                          |
+               |                                                                       |
+               |    .. container:: line number5 index4 alt2                            |
+               |                                                                       |
+               |       ``                                                              |
+               | $ singularity exec --cleanenv /sw/external/E4S/e4s-gpu-x86_64.sif \`` |
+               |                                                                       |
+               |    .. container:: line number6 index5 alt1                            |
+               |                                                                       |
+               |       ``  ``\ ``/bin/bash --rcfile /etc/bash.bashrc``                 |
+               +-----------------------------------------------------------------------+
+
+   The spack package inside of the image will interact with a local
+   spack installation. If  ~/.spack directory exists, it might need to
+   be renamed. 
+
+   More information can be found at
+   https://e4s-project.github.io/download.html
+
+   .. rubric:: Protected Data (N/A)
+      :name: DeltaXSEDEDocumentation-ProtectedData(N/A)
+
+   ...
+
+   .. rubric:: **Help**
+      :name: DeltaXSEDEDocumentation-Help
+
+   For assistance with the use of Delta
+
+   -  XSEDE users can create a ticket via the user portal at
+      https://portal.xsede.org/web/xup/help-desk
+   -  All other users (Illinois allocations, Diversity Allocations, etc)
+      please send email to help@ncsa.illinois.edu.
+
+   .. rubric:: **Acknowledge**
+      :name: DeltaXSEDEDocumentation-Acknowledge
+
+   To acknowledge the NCSA Delta system in particular, please include
+   the following
+
+   This research is part of the Delta research computing project, which
+   is supported by the National Science Foundation (award OCI 2005572),
+   and the State of Illinois. Delta is a joint effort of the University
+   of Illinois at Urbana-Champaign and its National Center for
+   Supercomputing Applications.
+
+   To include acknowledgement of XSEDE contributions to a publication or
+   presentation please see https://portal.xsede.org/acknowledge and
+   https://www.xsede.org/for-users/acknowledgement.
+
+   .. rubric:: **References**
+      :name: DeltaXSEDEDocumentation-References
+
+   Supporting documentation resources:
+
+   https://www.rcac.purdue.edu/knowledge/anvil
+
+   https://nero-docs.stanford.edu/jupyter-slurm.html
+
+   | 
+
+.. |image1| image:: /download/attachments/144016994/image2021-3-12_14-23-11.png?version=1&modificationDate=1615925873000&api=v2
+   :class: confluence-embedded-image
+   :height: 250px
+.. |image2| image:: /rest/documentConversion/latest/conversion/thumbnail/179671355%20apply%20an%20ascending%20sort
